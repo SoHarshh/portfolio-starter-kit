@@ -16,17 +16,6 @@
   --sh-property: #e25a1c;
   --sh-entity: #e25a1c;
   --font-family: 'Inconsolata', monospace;
-  --background: #fffaed; /* Warm white for light mode */
-  --text-color: #1a1a1a;
-  --secondary-text: #3a3a3a;
-  --accent-color: #47a3f3;
-  --border-color: rgba(0, 0, 0, 0.1);
-  --transition-duration: 550ms;
-  --social-link-color: rgba(82, 82, 82, 1);
-  --texture-opacity: 0.05;
-  --texture-color-1: rgba(70, 130, 180, 0.3);
-  --texture-color-2: rgba(100, 149, 237, 0.15);
-  --texture-color-3: rgba(173, 216, 230, 0.1);
 }
 
 /* Custom theme variables */
@@ -38,10 +27,6 @@
   --border-color: rgba(0, 0, 0, 0.1);
   --transition-duration: 550ms;
   --social-link-color: rgba(82, 82, 82, 1);
-  --texture-opacity: 0.05;
-  --texture-color-1: rgba(70, 130, 180, 0.3);
-  --texture-color-2: rgba(100, 149, 237, 0.15);
-  --texture-color-3: rgba(173, 216, 230, 0.1);
 }
 
 .dark {
@@ -51,10 +36,6 @@
   --accent-color: #4c97f8;
   --border-color: rgba(255, 255, 255, 0.1);
   --social-link-color: rgba(229, 229, 229, 0.8);
-  --texture-opacity: 0.12;
-  --texture-color-1: rgba(30, 144, 255, 0.2);
-  --texture-color-2: rgba(65, 105, 225, 0.15);
-  --texture-color-3: rgba(0, 191, 255, 0.08);
 }
 
 /* Profile image styling */
@@ -370,96 +351,4 @@ table {
   transform: translateZ(0);
   -webkit-font-smoothing: subpixel-antialiased;
   image-rendering: -webkit-optimize-contrast;
-}
-
-/* Background texture styles */
-.background-texture {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -2;
-  pointer-events: none;
-  overflow: hidden;
-}
-
-.texture-overlay {
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  opacity: 0;
-  background: 
-    radial-gradient(circle at 20% 30%, var(--texture-color-1), transparent 60%),
-    radial-gradient(circle at 80% 40%, var(--texture-color-2), transparent 70%),
-    radial-gradient(ellipse at 50% 70%, var(--texture-color-3), transparent 70%);
-  transform-origin: center center;
-  transition: opacity var(--transition-duration) ease, 
-              background var(--transition-duration) ease,
-              transform 2s cubic-bezier(0.05, 0.8, 0.1, 1);
-  animation: slow-drift 120s infinite alternate linear;
-  mix-blend-mode: soft-light;
-  will-change: transform, opacity;
-}
-
-.texture-loaded .texture-overlay {
-  opacity: var(--texture-opacity);
-}
-
-/* Add a subtle noise texture */
-.texture-overlay::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-  opacity: 0.03;
-  mix-blend-mode: overlay;
-}
-
-@keyframes slow-drift {
-  0% {
-    transform: rotate(0deg) scale(1);
-  }
-  25% {
-    transform: rotate(1deg) scale(1.02);
-  }
-  50% {
-    transform: rotate(-1deg) scale(1.04);
-  }
-  75% {
-    transform: rotate(2deg) scale(1.02);
-  }
-  100% {
-    transform: rotate(-2deg) scale(1);
-  }
-}
-
-/* Fix for any z-index issues */
-.max-w-xl {
-  position: relative;
-  z-index: 1;
-}
-
-/* Add a subtle ripple animation to create a water-like effect */
-@keyframes ripple {
-  0% {
-    background-position: 0% 0%;
-  }
-  100% {
-    background-position: 100% 100%;
-  }
-}
-
-/* Make sure content stands out over background */
-main {
-  position: relative;
-  z-index: 1;
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
-  background-color: transparent !important;
 }
