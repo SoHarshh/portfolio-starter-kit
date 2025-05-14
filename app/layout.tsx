@@ -1,25 +1,30 @@
 import './global.css'
 import type { Metadata } from 'next'
-import { GeistSans } from 'geist/font/sans'
-import { GeistMono } from 'geist/font/mono'
-import { Navbar } from './components/nav'
+import { Inconsolata } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/next'
-import Footer from './components/footer'
 import { baseUrl } from './sitemap'
+import { ThemeProvider } from './components/theme-provider'
+
+// Load Inconsolata font
+const inconsolata = Inconsolata({
+  subsets: ['latin'],
+  display: 'swap',
+  weight: ['400', '500', '600', '700'],
+})
 
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
   title: {
-    default: 'Next.js Portfolio Starter',
-    template: '%s | Next.js Portfolio Starter',
+    default: 'Harsh Soni',
+    template: '%s | Harsh Soni',
   },
   description: 'This is my portfolio.',
   openGraph: {
-    title: 'My Portfolio',
+    title: 'Harsh Soni',
     description: 'This is my portfolio.',
     url: baseUrl,
-    siteName: 'My Portfolio',
+    siteName: 'Harsh Soni',
     locale: 'en_US',
     type: 'website',
   },
@@ -36,8 +41,6 @@ export const metadata: Metadata = {
   },
 }
 
-const cx = (...classes) => classes.filter(Boolean).join(' ')
-
 export default function RootLayout({
   children,
 }: {
@@ -46,20 +49,19 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={cx(
-        'text-black bg-white dark:text-white dark:bg-black',
-        GeistSans.variable,
-        GeistMono.variable
-      )}
+      className={inconsolata.className}
+      style={{ backgroundColor: 'transparent', height: '100%' }}
     >
-      <body className="antialiased max-w-xl mx-4 mt-8 lg:mx-auto">
-        <main className="flex-auto min-w-0 mt-6 flex flex-col px-2 md:px-0">
-          <Navbar />
-          {children}
-          <Footer />
-          <Analytics />
-          <SpeedInsights />
-        </main>
+      <body className="antialiased min-h-screen w-full" style={{ backgroundColor: 'transparent' }}>
+        <ThemeProvider>
+          <div className="max-w-xl mx-4 mt-8 lg:mx-auto">
+            <main className="flex-auto min-w-0 mt-6 flex flex-col px-2 md:px-0" style={{ backgroundColor: 'transparent' }}>
+              {children}
+              <Analytics />
+              <SpeedInsights />
+            </main>
+          </div>
+        </ThemeProvider>
       </body>
     </html>
   )
