@@ -5,6 +5,7 @@ import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import { baseUrl } from './sitemap'
 import { ThemeProvider } from './components/theme-provider'
+import { BackgroundTexture } from './components/background-texture'
 
 // Load Inconsolata font
 const inconsolata = Inconsolata({
@@ -54,6 +55,7 @@ export default function RootLayout({
     >
       <body className="antialiased min-h-screen w-full" style={{ backgroundColor: 'transparent' }}>
         <ThemeProvider>
+          <BackgroundTexture />
           <div className="max-w-xl mx-4 mt-8 lg:mx-auto">
             <main className="flex-auto min-w-0 mt-6 flex flex-col px-2 md:px-0" style={{ backgroundColor: 'transparent' }}>
               {children}
