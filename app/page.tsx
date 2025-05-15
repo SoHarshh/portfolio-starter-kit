@@ -116,16 +116,19 @@ export default function Page() {
         </div>
         
         <p className="mb-4 leading-relaxed text-base">
-          Here's a little corner where you can get to know me better.
+          I'm a sophomore majoring in Computer Science and Economics. I've always been someone who loves exploring new things and constantly looks for opportunities to learn and add new skills to my backpack. Whether it's solving problems with technology or understanding the intricacies of economic systems, I'm passionate about finding creative ways to apply my knowledge. When I'm outside my academic era, you'll likely find me on the tennis court!
         </p>
         
-        <p className="mb-4 leading-relaxed text-base">
-          I'm a sophomore majoring in Computer Science and Economics. I've always been someone who loves exploring new things and constantly looks for opportunities to learn and add new skills to my backpack. Whether it's solving problems with technology or understanding the intricacies of economic systems, I'm passionate about finding creative ways to apply my knowledge.
-        </p>
+        <p className="mb-3 leading-relaxed text-base">Building Ideas, One Project at a Time:</p>
         
-        <p className="mb-4 leading-relaxed text-base">
-          When I'm outside my academic era, you'll likely find me on the tennis court!
-        </p>
+        <div className="mb-6">
+          <div className="flex gap-2 mb-2">
+            <span className="text-lg">•</span>
+            <p className="leading-relaxed text-base">
+              <strong>Stock Price Forecaster:</strong> LSTM-based deep learning model to predict S&P 500 movements using historical data and technical indicators (RSI, MACD, Bollinger Bands). Includes data preprocessing, feature engineering, and model training with evaluation metrics.
+            </p>
+          </div>
+        </div>
         
         <p className="mb-6 leading-relaxed text-base">
           Feel free to reach out :)
