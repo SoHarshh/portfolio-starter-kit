@@ -57,7 +57,7 @@ export default function Page() {
           >
             <div className="w-full h-full overflow-hidden rounded-lg">
               <Image 
-                src={`/profile.jpg`}
+                src={`/profile.jpeg`}
                 alt="Harsh Soni" 
                 width={140} 
                 height={140} 
