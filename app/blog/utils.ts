@@ -1,5 +1,7 @@
 import fs from 'fs'
 import path from 'path'
+import { serialize } from 'next-mdx-remote/serialize'
+import { MDXRemoteSerializeResult } from 'next-mdx-remote'
 
 type Metadata = {
   title: string
@@ -8,83 +10,95 @@ type Metadata = {
   image?: string
 }
 
-function parseFrontmatter(fileContent: string) {
-  let frontmatterRegex = /---\s*([\s\S]*?)\s*---/
-  let match = frontmatterRegex.exec(fileContent)
-  let frontMatterBlock = match![1]
-  let content = fileContent.replace(frontmatterRegex, '').trim()
-  let frontMatterLines = frontMatterBlock.trim().split('\n')
-  let metadata: Partial<Metadata> = {}
-
-  frontMatterLines.forEach((line) => {
-    let [key, ...valueArr] = line.split(': ')
-    let value = valueArr.join(': ').trim()
-    value = value.replace(/^['"](.*)['"]$/, '$1') // Remove quotes
-    metadata[key.trim() as keyof Metadata] = value
-  })
-
-  return { metadata: metadata as Metadata, content }
+type Post = {
+  metadata: Metadata
+  slug: string
+  content: MDXRemoteSerializeResult
 }
 
-function getMDXFiles(dir) {
+function parseFrontmatter(source: string): { frontmatter: Metadata; content: string } {
+  const regex = /---\r?\n([\s\S]*?)\r?\n---\r?\n([\s\S]*)/;
+  const match = source.match(regex);
+  
+  if (!match) {
+    throw new Error('Invalid frontmatter');
+  }
+  
+  const frontmatterString = match[1];
+  const content = match[2];
+  
+  const frontmatter: Record<string, string> = {};
+  const lines = frontmatterString.split('\n');
+  for (const line of lines) {
+    if (line.trim() !== '') {
+      const colonIndex = line.indexOf(':');
+      if (colonIndex !== -1) {
+        const key = line.slice(0, colonIndex).trim();
+        const value = line.slice(colonIndex + 1).trim();
+        frontmatter[key] = value;
+      }
+    }
+  }
+  
+  return {
+    frontmatter: frontmatter as unknown as Metadata,
+    content
+  };
+}
+
+function getMDXFiles(dir: string): string[] {
   return fs.readdirSync(dir).filter((file) => path.extname(file) === '.mdx')
 }
 
-function readMDXFile(filePath) {
+async function readMDXFile(filePath: string): Promise<{ metadata: Metadata; content: MDXRemoteSerializeResult }> {
   let rawContent = fs.readFileSync(filePath, 'utf-8')
-  return parseFrontmatter(rawContent)
+  const { frontmatter, content } = parseFrontmatter(rawContent)
+  const mdxSource = await serialize(content, { 
+    parseFrontmatter: false,
+    mdxOptions: {
+      development: process.env.NODE_ENV === 'development'
+    }
+  })
+  
+  return {
+    metadata: frontmatter as Metadata,
+    content: mdxSource
+  }
 }
 
-function getMDXData(dir) {
+async function getMDXData(dir: string): Promise<Post[]> {
   let mdxFiles = getMDXFiles(dir)
-  return mdxFiles.map((file) => {
-    let { metadata, content } = readMDXFile(path.join(dir, file))
-    let slug = path.basename(file, path.extname(file))
-
-    return {
+  const posts: Post[] = []
+  
+  for (const file of mdxFiles) {
+    const { metadata, content } = await readMDXFile(path.join(dir, file))
+    const slug = path.basename(file, path.extname(file))
+    
+    posts.push({
       metadata,
       slug,
       content,
-    }
-  })
+    })
+  }
+  
+  return posts
 }
 
-export function getBlogPosts() {
+export async function getBlogPosts(): Promise<Post[]> {
   return getMDXData(path.join(process.cwd(), 'app', 'blog', 'posts'))
 }
 
-export function formatDate(date: string, includeRelative = false) {
-  let currentDate = new Date()
-  if (!date.includes('T')) {
-    date = `${date}T00:00:00`
-  }
-  let targetDate = new Date(date)
-
-  let yearsAgo = currentDate.getFullYear() - targetDate.getFullYear()
-  let monthsAgo = currentDate.getMonth() - targetDate.getMonth()
-  let daysAgo = currentDate.getDate() - targetDate.getDate()
-
-  let formattedDate = ''
-
-  if (yearsAgo > 0) {
-    formattedDate = `${yearsAgo}y ago`
-  } else if (monthsAgo > 0) {
-    formattedDate = `${monthsAgo}mo ago`
-  } else if (daysAgo > 0) {
-    formattedDate = `${daysAgo}d ago`
-  } else {
-    formattedDate = 'Today'
-  }
-
-  let fullDate = targetDate.toLocaleString('en-us', {
+export function formatDate(date: string, includeTime = true): string {
+  const options: Intl.DateTimeFormatOptions = {
+    year: 'numeric',
     month: 'long',
     day: 'numeric',
-    year: 'numeric',
-  })
-
-  if (!includeRelative) {
-    return fullDate
   }
 
-  return `${fullDate} (${formattedDate})`
+  if (includeTime) {
+    options.hour = 'numeric'
+    options.minute = 'numeric'
+  }
+
+  return new Date(date).toLocaleDateString('en-US', options)
 }
