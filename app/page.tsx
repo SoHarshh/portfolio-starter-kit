@@ -63,7 +63,7 @@ export default function Page() {
       style={{ backgroundColor: 'transparent' }}
     >
       <div className="flex items-center justify-between mb-8">
-        <h1 className="text-3xl font-semibold tracking-tight">
+        <h1 className="text-2xl font-semibold tracking-tight">
           Harsh Soni
         </h1>
         <div className="flex items-center">
@@ -126,32 +126,36 @@ export default function Page() {
       
       <div className="font-normal">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-2xl font-semibold tracking-tight">Howdy!</h2>
+          <h2 className="text-xl font-semibold tracking-tight">Howdy!</h2>
           <div className="theme-toggle-container">
             <ThemeToggle />
           </div>
         </div>
         
-        <p className="mb-5 leading-relaxed text-lg">
+        <p className="mb-4 leading-relaxed text-base">
           Here's a little corner where you can get to know me better.
         </p>
         
-        <p className="mb-5 leading-relaxed text-lg">
+        <p className="mb-4 leading-relaxed text-base">
           I'm a sophomore majoring in Computer Science and Economics. I've always been someone who loves exploring new things and constantly looks for opportunities to learn and add new skills to my backpack. Whether it's solving problems with technology or understanding the intricacies of economic systems, I'm passionate about finding creative ways to apply my knowledge.
         </p>
         
-        <p className="mb-5 leading-relaxed text-lg">
+        <p className="mb-4 leading-relaxed text-base">
           When I'm outside my academic era, you'll likely find me on the tennis court!
         </p>
         
-        <div className="mt-8 pt-6 border-t border-neutral-200 dark:border-neutral-700">
-          <div className="flex flex-wrap items-center gap-6">
-            <SocialLink href="https://www.linkedin.com/in/harsh-soni46" label="LinkedIn" />
-            <SocialLink href="https://twitter.com/SoHarshhh" label="Twitter" />
-            <SocialLink href="https://instagram.com/Soharshh__" label="Instagram" />
-            <SocialLink href="https://github.com/SoHarshh" label="GitHub" />
-            <SocialLink href="mailto:Soni.harsh0707@gmail.com" label="Email" />
-            <SocialLink href="/Harsh Soni CV.pdf" label="Resume" forceNewTab={true} />
+        <p className="mb-6 leading-relaxed text-base">
+          Feel free to reach out :)
+        </p>
+        
+        <div className="mt-6 pt-5 border-t border-neutral-200 dark:border-neutral-700">
+          <div className="flex flex-row items-center justify-between flex-wrap gap-2">
+            <SocialLink href="https://www.linkedin.com/in/harsh-soni46" label="LinkedIn" icon={<LinkedInIcon />} />
+            <SocialLink href="https://twitter.com/SoHarshhh" label="Twitter" icon={<TwitterIcon />} />
+            <SocialLink href="https://instagram.com/Soharshh__" label="Instagram" icon={<InstagramIcon />} />
+            <SocialLink href="https://github.com/SoHarshh" label="GitHub" icon={<GitHubIcon />} />
+            <SocialLink href="mailto:Soni.harsh0707@gmail.com" label="Email" icon={<EmailIcon />} />
+            <SocialLink href="/Harsh Soni CV.pdf" label="Resume" icon={<ResumeIcon />} forceNewTab={true} />
           </div>
         </div>
       </div>
@@ -159,15 +163,134 @@ export default function Page() {
   )
 }
 
-function SocialLink({ href, label, forceNewTab }: { href: string; label: string; forceNewTab?: boolean }) {
+function SocialLink({ href, label, icon, forceNewTab }: { href: string; label: string; icon: React.ReactNode; forceNewTab?: boolean }) {
   return (
     <Link 
       href={href}
-      className="social-link text-neutral-600 hover:text-neutral-800 dark:text-neutral-400 dark:hover:text-neutral-200 text-lg font-medium"
+      className="social-link text-neutral-600 hover:text-neutral-800 dark:text-neutral-400 dark:hover:text-neutral-200 text-sm"
       target={(href.startsWith('http') || href.startsWith('mailto') || forceNewTab) ? '_blank' : undefined}
       rel={(href.startsWith('http') || forceNewTab) ? 'noopener noreferrer' : undefined}
     >
+      {icon}
       {label}
     </Link>
+  )
+}
+
+// Social Icons
+function LinkedInIcon() {
+  return (
+    <svg 
+      xmlns="http://www.w3.org/2000/svg" 
+      width="14" 
+      height="14" 
+      viewBox="0 0 24 24" 
+      fill="none" 
+      stroke="currentColor" 
+      strokeWidth="2" 
+      strokeLinecap="round" 
+      strokeLinejoin="round"
+    >
+      <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+      <rect x="2" y="9" width="4" height="12"></rect>
+      <circle cx="4" cy="4" r="2"></circle>
+    </svg>
+  )
+}
+
+function TwitterIcon() {
+  return (
+    <svg 
+      xmlns="http://www.w3.org/2000/svg" 
+      width="14" 
+      height="14" 
+      viewBox="0 0 24 24" 
+      fill="none" 
+      stroke="currentColor" 
+      strokeWidth="2" 
+      strokeLinecap="round" 
+      strokeLinejoin="round"
+    >
+      <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path>
+    </svg>
+  )
+}
+
+function InstagramIcon() {
+  return (
+    <svg 
+      xmlns="http://www.w3.org/2000/svg" 
+      width="14" 
+      height="14" 
+      viewBox="0 0 24 24" 
+      fill="none" 
+      stroke="currentColor" 
+      strokeWidth="2" 
+      strokeLinecap="round" 
+      strokeLinejoin="round"
+    >
+      <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+      <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+    </svg>
+  )
+}
+
+function GitHubIcon() {
+  return (
+    <svg 
+      xmlns="http://www.w3.org/2000/svg" 
+      width="14" 
+      height="14" 
+      viewBox="0 0 24 24" 
+      fill="none" 
+      stroke="currentColor" 
+      strokeWidth="2" 
+      strokeLinecap="round" 
+      strokeLinejoin="round"
+    >
+      <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+    </svg>
+  )
+}
+
+function EmailIcon() {
+  return (
+    <svg 
+      xmlns="http://www.w3.org/2000/svg" 
+      width="14" 
+      height="14" 
+      viewBox="0 0 24 24" 
+      fill="none" 
+      stroke="currentColor" 
+      strokeWidth="2" 
+      strokeLinecap="round" 
+      strokeLinejoin="round"
+    >
+      <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+      <polyline points="22,6 12,13 2,6"></polyline>
+    </svg>
+  )
+}
+
+function ResumeIcon() {
+  return (
+    <svg 
+      xmlns="http://www.w3.org/2000/svg" 
+      width="14" 
+      height="14" 
+      viewBox="0 0 24 24" 
+      fill="none" 
+      stroke="currentColor" 
+      strokeWidth="2" 
+      strokeLinecap="round" 
+      strokeLinejoin="round"
+    >
+      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+      <polyline points="14 2 14 8 20 8"></polyline>
+      <line x1="16" y1="13" x2="8" y2="13"></line>
+      <line x1="16" y1="17" x2="8" y2="17"></line>
+      <polyline points="10 9 9 9 8 9"></polyline>
+    </svg>
   )
 }
