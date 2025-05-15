@@ -10,20 +10,6 @@ export default function Page() {
   const { toggleTheme } = useTheme()
   const pageRef = useRef<HTMLElement>(null)
   const [showImagePreview, setShowImagePreview] = useState(false)
-  const [imageTimestamp, setImageTimestamp] = useState(Date.now())
-
-  // Refresh the image when component mounts and periodically check for changes
-  useEffect(() => {
-    // Initial refresh
-    setImageTimestamp(Date.now())
-    
-    // Set up periodic check for new image
-    const checkInterval = setInterval(() => {
-      setImageTimestamp(Date.now())
-    }, 60000) // Check every minute
-    
-    return () => clearInterval(checkInterval)
-  }, [])
 
   // Set up click handlers only after initial mount
   useEffect(() => {    
@@ -46,8 +32,6 @@ export default function Page() {
 
   const handleImageClick = (e: React.MouseEvent) => {
     e.stopPropagation();
-    // Refresh image when previewing
-    setImageTimestamp(Date.now());
     setShowImagePreview(true);
   }
 
@@ -73,7 +57,7 @@ export default function Page() {
           >
             <div className="w-full h-full overflow-hidden rounded-lg">
               <Image 
-                src={`/profile.jpg?v=${imageTimestamp}`}
+                src={`/profile.jpg`}
                 alt="Harsh Soni" 
                 width={140} 
                 height={140} 
@@ -109,7 +93,7 @@ export default function Page() {
             </button>
             <div className="image-preview-container rounded-lg overflow-hidden">
               <Image 
-                src={`/profile.jpg?v=${imageTimestamp}`}
+                src={`/profile.jpg`}
                 alt="Harsh Soni" 
                 width={1000} 
                 height={1000}
@@ -117,7 +101,6 @@ export default function Page() {
                 priority
                 unoptimized
                 loading="eager"
-                quality={95}
               />
             </div>
           </div>
