@@ -63,20 +63,20 @@ export default function Page() {
       style={{ backgroundColor: 'transparent' }}
     >
       <div className="flex items-center justify-between mb-8">
-        <h1 className="text-2xl font-semibold tracking-tight">
+        <h1 className="text-3xl font-semibold tracking-tight">
           Harsh Soni
         </h1>
         <div className="flex items-center">
           <div 
-            className="profile-container h-[160px] w-[160px] overflow-hidden rounded-lg cursor-pointer shadow-lg"
+            className="profile-container h-[140px] w-[140px] overflow-hidden rounded-lg cursor-pointer shadow-lg"
             onClick={handleImageClick}
           >
             <div className="w-full h-full overflow-hidden rounded-lg">
               <Image 
                 src={`/profile.jpg?v=${imageTimestamp}`}
                 alt="Harsh Soni" 
-                width={160} 
-                height={160} 
+                width={140} 
+                height={140} 
                 className="object-cover h-full w-full static-image"
                 priority
                 unoptimized
@@ -126,26 +126,26 @@ export default function Page() {
       
       <div className="font-normal">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-xl font-semibold tracking-tight">Howdy!</h2>
+          <h2 className="text-2xl font-semibold tracking-tight">Howdy!</h2>
           <div className="theme-toggle-container">
             <ThemeToggle />
           </div>
         </div>
         
-        <p className="mb-4 leading-relaxed">
+        <p className="mb-5 leading-relaxed text-lg">
           Here's a little corner where you can get to know me better.
         </p>
         
-        <p className="mb-4 leading-relaxed">
+        <p className="mb-5 leading-relaxed text-lg">
           I'm a sophomore majoring in Computer Science and Economics. I've always been someone who loves exploring new things and constantly looks for opportunities to learn and add new skills to my backpack. Whether it's solving problems with technology or understanding the intricacies of economic systems, I'm passionate about finding creative ways to apply my knowledge.
         </p>
         
-        <p className="mb-4 leading-relaxed">
+        <p className="mb-5 leading-relaxed text-lg">
           When I'm outside my academic era, you'll likely find me on the tennis court!
         </p>
         
         <div className="mt-8 pt-6 border-t border-neutral-200 dark:border-neutral-700">
-          <div className="flex flex-wrap items-center gap-5">
+          <div className="flex flex-wrap items-center gap-6">
             <SocialLink href="https://www.linkedin.com/in/harsh-soni46" label="LinkedIn" />
             <SocialLink href="https://twitter.com/SoHarshhh" label="Twitter" />
             <SocialLink href="https://instagram.com/Soharshh__" label="Instagram" />
@@ -163,7 +163,7 @@ function SocialLink({ href, label, forceNewTab }: { href: string; label: string;
   return (
     <Link 
       href={href}
-      className="social-link text-neutral-600 hover:text-neutral-800 dark:text-neutral-400 dark:hover:text-neutral-200"
+      className="social-link text-neutral-600 hover:text-neutral-800 dark:text-neutral-400 dark:hover:text-neutral-200 text-lg font-medium"
       target={(href.startsWith('http') || href.startsWith('mailto') || forceNewTab) ? '_blank' : undefined}
       rel={(href.startsWith('http') || forceNewTab) ? 'noopener noreferrer' : undefined}
     >

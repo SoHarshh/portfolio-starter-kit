@@ -11,7 +11,7 @@ export function ThemeToggle() {
         e.stopPropagation() // Prevent the click from triggering the document click handler
         toggleTheme()
       }}
-      className="theme-icon flex items-center justify-center"
+      className="theme-icon flex items-center justify-center p-1"
       aria-label="Toggle dark mode"
     >
       {theme === 'dark' ? <SunIcon /> : <MoonIcon />}
@@ -23,8 +23,8 @@ function SunIcon() {
   return (
     <svg 
       xmlns="http://www.w3.org/2000/svg" 
-      width="20" 
-      height="20" 
+      width="24" 
+      height="24" 
       viewBox="0 0 24 24" 
       fill="none" 
       stroke="currentColor" 
@@ -49,8 +49,8 @@ function MoonIcon() {
   return (
     <svg 
       xmlns="http://www.w3.org/2000/svg" 
-      width="20" 
-      height="20" 
+      width="24" 
+      height="24" 
       viewBox="0 0 24 24" 
       fill="none" 
       stroke="currentColor" 
