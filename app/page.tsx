@@ -128,6 +128,13 @@ export default function Page() {
               <strong>Stock Price Forecaster:</strong> LSTM-based deep learning model to predict S&P 500 movements using historical data and technical indicators (RSI, MACD, Bollinger Bands). Includes data preprocessing, feature engineering, and model training with evaluation metrics.
             </p>
           </div>
+          
+          <div className="flex gap-2 mb-2">
+            <span className="text-lg">•</span>
+            <p className="leading-relaxed text-base">
+              <strong>EatWize:</strong> Building a smart, macro-focused web app that helps fitness-conscious users discover healthy cheat meals from nearby restaurants. Users can input or sync their daily macro goals, enter their location, and instantly get curated meal options. Combines a clean, responsive UI with API integrations, real-time filtering, and usage-based personalization for smarter meal decisions.
+            </p>
+          </div>
         </div>
         
         <p className="mb-6 leading-relaxed text-base">
